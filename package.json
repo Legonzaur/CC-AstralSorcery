@@ -1,7 +1,7 @@
 {
-  "name": "cc-tstl-template",
-  "version": "1.100.5",
-  "description": "Template project for ComputerCraft programs written in TypeScript.",
+  "name": "cc_astralsorcery",
+  "version": "0.1",
+  "description": "Computercraft tabletPC and Computer program for astralSorcery",
   "main": "main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,6 +12,6 @@
     "@jackmacwindows/lua-types": "^2.11.0",
     "@jackmacwindows/typescript-to-lua": "^1.6.0"
   },
-  "author": "JackMacWindows",
+  "author": "Legonzaur",
   "license": "MIT"
 }
