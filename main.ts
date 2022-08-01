@@ -82,7 +82,7 @@ function drawSearch(starty: number, constellation: string): Handlers {
 function drawHorlogium(starty: number): Handlers {
     const height = 3
     const textY = starty + 1
-    const days = (getDay() + horlogium_offset) % 32;
+    const days = (getDay() + horlogium_offset) % 36;
     paintutils.drawLine(1, textY, x, textY, colors.black)
     term.setBackgroundColor(colors.black)
     term.setTextColor(colors.white)
