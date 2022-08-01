@@ -51,7 +51,7 @@ function drawSearch(starty: number, constellation: string): Handlers {
         if (cur < phase) cur += 8
         if (cur < prev) return cur
         return prev
-    }, 8)
+    }, 8) - phase
     paintutils.drawLine(1, textY, x, textY, colors.black)
     term.setBackgroundColor(colors.black)
     term.setTextColor(colors.white)
