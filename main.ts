@@ -19,7 +19,7 @@ for (let i = 0; i < 8; i++) {
 }
 
 function runTimer() {
-    timers[os.startTimer((24 - getHour()) * 50)] = runTimer
+    timers[os.startTimer(10)] = runTimer
     handles.timer.forEach((e, i) => handles.timer[i] = e().timer)
 }
 
@@ -37,7 +37,7 @@ function drawCurrent(starty: number): Handlers {
     })
     paintutils.drawLine(1, height + starty, x, height + starty, colors.lightGray)
     const handler = {
-        "timer": () => drawCurrent(starty),
+        "timer": () => getMoonPhase() == phase ? handler : drawCurrent(starty),
         "click": () => handler
     };
     return handler;
@@ -64,7 +64,7 @@ function drawSearch(starty: number, constellation: string): Handlers {
     print(text)
     paintutils.drawLine(1, height + starty, x, height + starty, colors.lightGray)
     const handler = {
-        "timer": () => drawCurrent(starty),
+        "timer": () => getMoonPhase() == phase ? handler : drawSearch(starty, constellation),
         "click": (id, posX, posY) => {
             if (posY == textY) {
                 if (posX == 1) {
@@ -82,16 +82,17 @@ function drawSearch(starty: number, constellation: string): Handlers {
 function drawHorlogium(starty: number): Handlers {
     const height = 3
     const textY = starty + 1
-    const days = (getDay() + horlogium_offset) % 36;
+    const today = getDay()
+    const days = (today + horlogium_offset) % 36;
     paintutils.drawLine(1, textY, x, textY, colors.black)
     term.setBackgroundColor(colors.black)
     term.setTextColor(colors.white)
-    const text = `horlogium: ${days} days`
+    const text = `horlogium: ${36 - days} days`
     term.setCursorPos((x / 2 - math.floor(text.length / 2) + 1), textY)
     print(text)
     paintutils.drawLine(1, height + starty, x, height + starty, colors.lightGray)
     const handler = {
-        "timer": () => drawHorlogium(starty),
+        "timer": () => getDay() == today ? handler : drawHorlogium(starty),
         "click": () => handler
     };
     return handler;
@@ -110,7 +111,7 @@ handles.timer = [currentHandler.timer]
 handles.timer.push(searchHandler.timer)
 handles.timer.push(horlogiumHandler.timer)
 
-timers[os.startTimer((24 - getHour()) * 50)] = runTimer
+timers[os.startTimer(10)] = runTimer
 
 while (true) {
     const ev = event.pullEventRawAs(event.GenericEvent);
